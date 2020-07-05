@@ -15,8 +15,16 @@ const useStyles = makeStyles( (theme) => ({
     },
     formControl: {
         '& > *': {
-            margin: theme.spacing(1),
+            margin: theme.spacing(2),
         },
+        width: '100%',
+    },
+    txtField:{
+        width: 250,
+
+        '@media (max-width: 640px)': {
+            width: 200,
+        }
     },
 }));
 
@@ -35,6 +43,7 @@ const Formulario = () => {
                     autoComplete="off"
                 >
                     <TextField 
+                        className={classes.txtField}
                         id="outlined-basic" 
                         label="Ingrediente" 
                         variant="outlined"
@@ -43,10 +52,10 @@ const Formulario = () => {
 
 
                     <TextField
+                        className={classes.txtField}
                         id="outlined-select-currency"
                         select
                         label="Categoria"
-                        helperText="Seleccione categoria"
                         variant="outlined"
                         required
                     >
@@ -57,7 +66,11 @@ const Formulario = () => {
                         <MenuItem value={20}>Twenty</MenuItem>
                         <MenuItem value={30}>Thirty</MenuItem>
                     </TextField>
-                    <Button variant="outlined" color="primary">
+                    <Button 
+                        variant="outlined" 
+                        size="large" 
+                        color="primary"
+                    >
                         Buscar Bebida
                     </Button>
                 </form>
