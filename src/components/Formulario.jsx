@@ -1,4 +1,5 @@
-import React from 'react';
+import React,{useContext, useState} from 'react';
+import {CategoriasContext} from '../context/CategoriaContext';
 import {Container,
         makeStyles, 
         Typography, 
@@ -32,6 +33,19 @@ const Formulario = () => {
 
     const classes = useStyles();
 
+    const { categorias } = useContext(CategoriasContext);
+    const [busqueda, guardarBusqueda] = useState({
+        nombre:'',
+        categoria:''
+    });
+
+    const obtenerDatosReceta = e =>{
+        guardarBusqueda({
+            ...busqueda,
+            [e.target.name] : e.target.value
+        });
+
+    }
     return ( 
         <Container className={classes.root}>
             <Typography variant="subtitle1">
@@ -45,9 +59,11 @@ const Formulario = () => {
                     <TextField 
                         className={classes.txtField}
                         id="outlined-basic" 
-                        label="Ingrediente" 
+                        label="Ingrediente"
+                        name="nombre" 
                         variant="outlined"
                         required
+                        onChange={obtenerDatosReceta}
                     />
 
 
@@ -56,20 +72,26 @@ const Formulario = () => {
                         id="outlined-select-currency"
                         select
                         label="Categoria"
+                        name="categoria"
                         variant="outlined"
                         required
+                        onChange={obtenerDatosReceta}
                     >
-                        <MenuItem value="">
-                            <em>None</em>
+                        <MenuItem value="">Seleccione Categoria</MenuItem>
+                    {categorias && categorias.map(categoria =>(
+                        <MenuItem 
+                            key={categoria.strCategory} 
+                            value={categoria.strCategory}
+                        >
+                            {categoria.strCategory}
                         </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                    ))}                    
                     </TextField>
                     <Button 
                         variant="outlined" 
                         size="large" 
                         color="primary"
+                        type="submit"
                     >
                         Buscar Bebida
                     </Button>

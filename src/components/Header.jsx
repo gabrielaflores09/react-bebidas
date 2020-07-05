@@ -1,7 +1,6 @@
 import React,{Fragment} from 'react';
 import {AppBar,Typography } from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import Formulario from './Formulario';
 
 const useStyles = makeStyles((theme) =>({
     root: {
