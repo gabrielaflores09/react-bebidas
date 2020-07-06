@@ -7,7 +7,8 @@ import {Card,
         CardContent,
         Typography,
         Button,
-        Modal
+        Modal,
+        CardHeader
 } from '@material-ui/core';
 
 import {ModalContext} from '../context/ModalContext';
@@ -31,6 +32,9 @@ const useStyles = makeStyles(theme => ({
   media: {
     height: 200,
   },
+  mediaModal:{
+    height: 230,
+  },
   icono: {
     marginLeft:35,
     marginRight:5,
@@ -42,10 +46,13 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     position: 'absolute',
-    width: 600,
+    width: 300,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    '@media (max-width: 640px)': {
+        width: 250,
+    }
   },
 }));
 
@@ -63,8 +70,9 @@ const Receta = ({receta}) => {
         setOpen(false);
     }
     
-    const { guardarIdReceta } = useContext(ModalContext)
+    const { ingredientes, guardarIdReceta, guardarIngredientes } = useContext(ModalContext)
 
+    console.log(ingredientes);
     return ( 
         <Card className={classes.root}>
             <CardActionArea>
@@ -100,11 +108,37 @@ const Receta = ({receta}) => {
                     open={open}
                     onClose={()=>{
                         guardarIdReceta(null);
+                        guardarIngredientes({});
                         handleClose();
                     }}
                 >
                     <div style={modalStyle} className={classes.paper}>
+                        <Card>
+                            <CardHeader
+                                title={ingredientes.strDrink}
+                            />
+                            <CardActionArea>
+                                <CardMedia
+                                    className={classes.mediaModal}
+                                    image={ingredientes.strDrinkThumb}
+                                    title="imagen receta"
+                                />
+                            </CardActionArea>
+                            
+                            <CardContent>
+                                <Typography variant="subtitle1">
+                                    Instructions
+                                </Typography>
+                                <Typography 
+                                    variant="body2" 
+                                    color="textSecondary" 
+                                    component="p"
+                                >
+                                    {ingredientes.strInstructions}
+                                </Typography>
+                            </CardContent>
 
+                        </Card>
                     </div>
                 </Modal>
             </CardActions>
