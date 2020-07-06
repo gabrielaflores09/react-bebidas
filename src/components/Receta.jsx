@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     height: 200,
   },
   mediaModal:{
-    height: 230,
+    height: 210,
   },
   icono: {
     marginLeft:35,
@@ -72,6 +72,20 @@ const Receta = ({receta}) => {
     
     const { ingredientes, guardarIdReceta, guardarIngredientes } = useContext(ModalContext)
 
+    const mostrarIngredientes = ingredientes =>{
+        let detalleIngredientes = [];
+
+        for(let i=1; i<16; i++){
+            if(ingredientes[`strIngredient${i}`]){
+                detalleIngredientes.push(
+                    <li>
+                        {ingredientes[`strIngredient${i}`]}:  {ingredientes[`strMeasure${i}`]}
+                    </li>
+                )
+            }
+        }
+        return detalleIngredientes;
+    }
     console.log(ingredientes);
     return ( 
         <Card className={classes.root}>
@@ -127,7 +141,7 @@ const Receta = ({receta}) => {
                             
                             <CardContent>
                                 <Typography variant="subtitle1">
-                                    Instructions
+                                    Instrucciones
                                 </Typography>
                                 <Typography 
                                     variant="body2" 
@@ -136,8 +150,20 @@ const Receta = ({receta}) => {
                                 >
                                     {ingredientes.strInstructions}
                                 </Typography>
-                            </CardContent>
+                                <Typography 
+                                    variant="subtitle1" 
+                                >
+                                    Ingredientes y Cantidades
+                                </Typography>
+                                <Typography 
+                                    variant="body2" 
+                                    color="textSecondary" 
+                                ><ul>
+                                    {mostrarIngredientes(ingredientes)}
+                                </ul> 
+                                </Typography>
 
+                            </CardContent>
                         </Card>
                     </div>
                 </Modal>
