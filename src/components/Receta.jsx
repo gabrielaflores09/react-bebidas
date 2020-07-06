@@ -34,11 +34,10 @@ const useStyles = makeStyles(theme => ({
   },
   mediaModal:{
     height: 210,
+    width:'100%',
   },
-  icono: {
-    marginLeft:35,
-    marginRight:5,
-    fontSize:15,
+  modalM:{
+    overflow: 'scroll',
   },
   content: {
       padding:10,
@@ -46,10 +45,10 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     position: 'absolute',
-    width: 300,
+    width: 350,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(2, 2, 2),
     '@media (max-width: 640px)': {
         width: 250,
     }
@@ -125,6 +124,7 @@ const Receta = ({receta}) => {
                         guardarIngredientes({});
                         handleClose();
                     }}
+                    className={classes.modalM}
                 >
                     <div style={modalStyle} className={classes.paper}>
                         <Card>
