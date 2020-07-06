@@ -8,13 +8,12 @@ const ListaRecetas = () => {
     const { recetas } = useContext(RecetasContext);
     return ( 
         <Fragment>
-            <h1>Recetas</h1>
             <Grid 
-                    direction="row"
-                    container
-                    justify="center"
-                    alignItems="center"
-                >
+                direction="row"
+                container
+                justify="center"
+                alignItems="center"
+            >
                 {recetas && recetas.map(receta =>(
                     <Receta
                         key={receta.idDrink}
