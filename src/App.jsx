@@ -1,14 +1,19 @@
 import React from 'react';
 import Header from './components/Header';
 import Formulario from './components/Formulario';
+import ListaRecetas from './components/ListaRecetas';
 
 import CategoriasProvider from './context/CategoriaContext';
+import RecetasProvider from './context/RecetasContext';
 
 function App() {
   return (
     <CategoriasProvider>
-      <Header/>
-      <Formulario/>
+      <RecetasProvider>
+        <Header/>
+        <Formulario/>
+        <ListaRecetas/>
+      </RecetasProvider>
     </CategoriasProvider>
   );
 }

@@ -1,5 +1,7 @@
 import React,{useContext, useState} from 'react';
 import {CategoriasContext} from '../context/CategoriaContext';
+import {RecetasContext} from '../context/RecetasContext';
+
 import {Container,
         makeStyles, 
         Typography, 
@@ -34,6 +36,8 @@ const Formulario = () => {
     const classes = useStyles();
 
     const { categorias } = useContext(CategoriasContext);
+    const { buscarRecetas, guardarConsultar } = useContext(RecetasContext);
+
     const [busqueda, guardarBusqueda] = useState({
         nombre:'',
         categoria:''
@@ -44,8 +48,8 @@ const Formulario = () => {
             ...busqueda,
             [e.target.name] : e.target.value
         });
-
     }
+
     return ( 
         <Container className={classes.root}>
             <Typography variant="subtitle1">
@@ -55,6 +59,11 @@ const Formulario = () => {
                 <form 
                     className={classes.formControl}
                     autoComplete="off"
+                    onSubmit={e=>{
+                        e.preventDefault();
+                        buscarRecetas(busqueda);
+                        guardarConsultar(true);
+                    }}
                 >
                     <TextField 
                         className={classes.txtField}
@@ -62,7 +71,6 @@ const Formulario = () => {
                         label="Ingrediente"
                         name="nombre" 
                         variant="outlined"
-                        required
                         onChange={obtenerDatosReceta}
                     />
 
@@ -74,7 +82,6 @@ const Formulario = () => {
                         label="Categoria"
                         name="categoria"
                         variant="outlined"
-                        required
                         onChange={obtenerDatosReceta}
                     >
                         <MenuItem value="">Seleccione Categoria</MenuItem>
@@ -87,14 +94,29 @@ const Formulario = () => {
                         </MenuItem>
                     ))}                    
                     </TextField>
-                    <Button 
+                    {(busqueda.nombre.trim().length>2 ||
+                        busqueda.categoria.trim().length >2
+                    )? 
+                        <Button 
+                            variant="outlined" 
+                            size="large" 
+                            color="primary"
+                            type="submit"
+                        >
+                            Buscar Bebida
+                        </Button>
+                        :
+                        <Button 
                         variant="outlined" 
                         size="large" 
                         color="primary"
                         type="submit"
-                    >
+                        disabled
+                        >
                         Buscar Bebida
-                    </Button>
+                        </Button>
+                     }
+                    
                 </form>
             </Toolbar>
         </Container>
