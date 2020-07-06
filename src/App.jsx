@@ -5,14 +5,17 @@ import ListaRecetas from './components/ListaRecetas';
 
 import CategoriasProvider from './context/CategoriaContext';
 import RecetasProvider from './context/RecetasContext';
+import ModalProvider from './context/ModalContext';
 
 function App() {
   return (
     <CategoriasProvider>
       <RecetasProvider>
-        <Header/>
-        <Formulario/>
-        <ListaRecetas/>
+        <ModalProvider>
+          <Header/>
+          <Formulario/>
+          <ListaRecetas/>
+        </ModalProvider>
       </RecetasProvider>
     </CategoriasProvider>
   );

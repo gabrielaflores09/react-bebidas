@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { ThumbUp, Visibility} from '@material-ui/icons';
 import {Card,
         CardActionArea,
@@ -8,6 +8,8 @@ import {Card,
         CardContent,
         Typography,
         Button} from '@material-ui/core';
+
+import {ModalContext} from '../context/ModalContext';
 
 const useStyles = makeStyles({
   root: {
@@ -28,8 +30,10 @@ const useStyles = makeStyles({
   }
 });
 
-const Bebida = ({receta}) => {
+const Receta = ({receta}) => {
     const classes = useStyles();
+
+    const { guardarIdReceta } = useContext(ModalContext)
 
     return ( 
         <Card className={classes.root}>
@@ -55,6 +59,9 @@ const Bebida = ({receta}) => {
                     variant="outlined" 
                     fullWidth 
                     color="primary" 
+                    onClick={()=>{
+                        guardarIdReceta(receta.idDrink)
+                    }}
                 >
                     Ver Receta
                 </Button>
@@ -63,4 +70,4 @@ const Bebida = ({receta}) => {
      );
 }
  
-export default Bebida;
+export default Receta;
